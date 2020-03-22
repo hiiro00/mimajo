@@ -1,0 +1,39 @@
+<%= content_for(:body_index, "index") %>
+
+<div class="outer">
+  <div class="out_relative">
+
+    <div class="title_small">
+      <img src="/logo_data_01.jpg">
+    </div><br>
+    <div class="kadomaru_futinasi inner">
+      お題
+    </div>
+    <div class="posi_type">盛り上がるアニメソングといえば？</div><br>
+
+    <div class="kadomaru_futinasi inner">
+      あなたの役職
+    </div>
+
+    <div class="title_small">
+      <img src="/minority_no.png">
+    </div><br>
+    <div class="posi_type">あなたは少数派！</div><br>
+    最多得票で追放されない事を目指す。<br>
+    お題の「ベストアンサー」を想像して、
+    少し離れた回答を書こう。<br><br>
+
+
+    <div class="kadomaru_futinasi_pit inner">
+      ホワイトボード
+      <%= link_to '', board_villages_path %>
+      <!--<a href="board.html"></a>-->
+    </div><br>
+    <div class="kadomaru_futinasi_pit inner">
+      戻る
+      <%= link_to '', controller: rooms_path %>
+      <!--<a href="room.html"></a>-->
+    </div><br><br>
+
+  </div><br><br>
+</div>

@@ -1,0 +1,83 @@
+<%= content_for(:body_index, "index") %>
+
+<div class="normal_indent">
+
+<p><div class="title1">ゲーム準備</div>
+１．表の通り役職カードを調整したら裏にして一枚ずつ配る。<br>
+２．配られたカードを他の人に見られないように確認する。<br>
+３．お題を出す人を1人決め、お題を出す。<br>
+４．全プレイヤーはお題と役職に沿った回答をホワイトボードに書く。<br></p>
+ 
+<p><div class="title1">ゲーム開始</div>
+  １．全員が書き終わったら回答をオープンする。<br>
+  ２．一番被ったお題が「ベストアンサー」となる。(被らなかった場合はマイノリティーの勝利)<br>
+  ３．複数被ったお題がある場合は被ったお題を書いていないプレイヤーの一斉投票で「ベストアンサー」を決める。<br>
+  ４．「ベストアンサー」が決まったら、「ベストアンサー」の中にマイノリティーがいないか確認。(いた場合は挙手して出てもらい、マジョリティーの勝利)<br>
+  ５．「ベストアンサー」決定後、議論時間3～5分で誰がマイノリティーか話し合う。<br>
+  ６．議論時間終了後全員一斉投票で怪しい人に指をさす。最多得票がカードをオープンする。<br></p><br>
+
+
+<div class="box">
+  <div class="box-img">
+    <img src="/majority_no.png"></div>
+
+  <div class="box-text">
+    <div class="position_name">マジョリティー</div>
+    <div class="detail_txt">
+    あなたは多数派！「ベストアンサー」を目指す。<br>
+    お題に沿った素直な回答や、なるべく被りそうな回答を書こう。<br></div>
+  
+    <span class="sikaku">勝利条件</span>
+    <div class="detail_txt">
+    最多票でマイノリティーを追放<br>
+    マイノリティーが「ベストアンサー」になる<br>
+    ※ストーカーにマイノリティーと同じ回答を書かれない。</div></div></div><br>
+
+<div class="box">
+  <div class="box-img">
+    <img src="/minority_no.png"></div>
+
+  <div class="box-text">
+    <div class="position_name">マイノリティー</div>
+    <div class="detail_txt">
+    あなたは少数派！最多得票で追放されない事を目指す。<br>
+    お題の「ベストアンサー」を想像して、少し離れた回答を書こう。<br>
+    離れすぎると怪しまれるのでいい感じの塩梅で！<br></div>
+  
+    <span class="sikaku">勝利条件</span>
+    <div class="detail_txt">
+    「ベストアンサー」にならず、最多得票で追放されない。<br>
+    ※ストーカーに同じ回答を書かれない。</div></div></div><br>
+
+<div class="box">
+  <div class="box-img">
+    <img src="/influencer_no.png"></div>
+
+  <div class="box-text">
+    <div class="position_name">インフルエンサー</div>
+    <div class="detail_txt">
+    あなたは目立ちたがり屋！とにかく注目されよう。<br>
+    投票時にたくさん票をもらうために「ベストアンサー」とは<br>
+    ほど遠い回答を書こう。<br></div>
+  
+    <span class="sikaku">勝利条件</span>
+    <div class="detail_txt">
+    最多得票で追放される。<br>
+    ※ストーカーにマイノリティーと同じ回答を書かれない。</div></div></div><br>
+
+<div class="box">
+  <div class="box-img">
+    <img src="/stalker_no.png"></div>
+
+  <div class="box-text">
+    <div class="position_name">ストーカー</div>
+    <div class="detail_txt">
+      あなたはマイノリティーが大好き！<br>
+      マイノリティーと同じ回答を書こう。<br></div>
+  
+    <span class="sikaku">勝利条件</span>
+    <div class="detail_txt">
+    マイノリティーと同じ回答を書く。<br>
+    ※どんな状況でもマイノリティーと同じ回答なら勝利</div></div></div><br>
+
+</div>

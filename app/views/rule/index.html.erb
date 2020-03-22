@@ -1,0 +1,27 @@
+<%= content_for(:body_index, "rule") %>
+
+<div class="outer">
+  <div class="out_relative">
+
+    <div class="title_small">
+      <img src="/rule_title.jpg">
+    </div>
+    <p> </p>
+    <div class="kadomaru_red inner">
+      ルール説明
+    </div>
+    <p> </p>
+    <iframe id="inline-frame"
+      width="95%" 
+      height="1000vw"
+      src="/rule/rule_detail">
+      <!--src= <%= url_for(rule_detail_rule_index_path) %> >-->
+    </iframe>
+    <p> </p>
+    <div class="kadomaru_red_pit inner">
+      戻る
+      <%= link_to '', controller: :welcome %>
+    </div><br><br>
+
+  </div><br><br>
+</div>
