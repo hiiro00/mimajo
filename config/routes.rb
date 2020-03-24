@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
   resources :themes
-  resources :rooms
+  resources :rooms do
+    	collection do
+  	  get 'login'
+  	end
+  end
   
   resources :villages do
   	collection do

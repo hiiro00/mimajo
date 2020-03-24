@@ -1,0 +1,35 @@
+<%= content_for(:body_index, "index") %>
+
+<div class="outer">
+    <div class="out_relative">
+
+      <div class="title_small">
+        <img src="/logo_data_01.jpg">
+      </div><br>
+      <div class="kadomaru_red inner">
+          ログイン
+        </div><br><br>
+      <div class="col">
+        <a href="rule.html" class="btn btn-twitter btn-xxl">
+          <i class="fab fa-twitter fa-2x"></i>　Twitterでログインする
+        </a>
+      </div><br>
+
+      <p class="border_text">または</p>   
+      <br>
+      <div class="col">
+        <%= form_tag(selectroom_index_path,method: :get) do %>
+          <div class="form-group">
+            <%= label_tag :名前 %>
+            <%= text_field_tag :class=>"form-control" %>
+          </div>
+
+          <%= submit_tag '一時アカウントでログイン', :class=>"kadomaru_futinasi_pit_prim inner" %>
+          
+        <% end %>
+
+    </div><br><br>
+  </div>
+</div>
+
+  
