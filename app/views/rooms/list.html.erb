@@ -1,0 +1,64 @@
+<%= content_for(:body_index, "index") %>
+
+<div class="outer">
+  <div class="out_relative">
+    <div class="title_small">
+      <img src="/logo_data_01.jpg">
+    </div><br>
+    <div class="kadomaru_red_futinasi inner">
+        部屋一覧
+        <%= link_to '', controller: rooms_path %>
+    </div><br>
+    
+    <table class='table table-striped table-hover tbl_font'>
+      <tr>
+        <th class='id uesita'>ID</th>
+        <th class='owner2 uesita'>オーナー</th>
+        <th class='uesita'>メンバー</th>
+      </tr>
+      <tr>
+        <td><%= link_to '1' , controller: rooms_path %></td>
+        <td><%= link_to '孫悟空' , controller: rooms_path %></td>
+  			<td><%= link_to 'ベジータ,ブルマ,トランクス,ヤムチャ' , controller: rooms_path %></td>
+      </tr>
+      <tr>
+        <td><%= link_to '2' , controller: rooms_path %></td>
+        <td><%= link_to 'ギニュー' , controller: rooms_path %></td>
+  			<td><%= link_to 'グルド,バータ' , controller: rooms_path %></td>
+      </tr>
+      <tr>
+        <td><%= link_to '3' , controller: rooms_path %></td>
+        <td><%= link_to 'フリーザ' , controller: rooms_path %></td>
+  			<td><%= link_to 'ドドリア、ザーボン' , controller: rooms_path %></td>
+      </tr>
+      <tr>
+        <td><%= link_to '4' , controller: rooms_path %></td>
+        <td><%= link_to 'ピラフ' , controller: rooms_path %></td>
+  			<td><%= link_to 'シュウ、マイ' , controller: rooms_path %></td>
+      </tr>
+      <tr>
+        <td><%= link_to '5' , controller: rooms_path %></td>
+        <td><%= link_to 'レッド総帥' , controller: rooms_path %></td>
+  			<td><%= link_to 'クマ、ムラサキ曹長、人造人間8号' , controller: rooms_path %></td>
+      </tr>
+      <tr>
+        <td><%= link_to '6' , controller: rooms_path %></td>
+        <td><%= link_to '亀仙人' , controller: rooms_path %></td>
+  			<td><%= link_to 'ウーロン、プーアル、ランチ、チチ、牛魔王、ウミガメ、占いババ、閻魔大王' , controller: rooms_path %></td>
+      </tr>
+
+
+    </table>
+    <br>
+
+    <div class="kadomaru inner">
+        部屋新規作成
+        <%= link_to '', controller: rooms_path %>
+    </div><br>
+    
+    <div class="kadomaru inner">
+        戻る
+        <%= link_to '', controller: :welcome %>
+    </div><br>
+  </div>
+</div>

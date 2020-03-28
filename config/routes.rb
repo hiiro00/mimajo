@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   resources :rooms do
     	collection do
   	  get 'login'
+  	  get 'list'
   	end
   end
   
