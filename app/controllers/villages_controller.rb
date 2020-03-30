@@ -1,4 +1,6 @@
 class VillagesController < ApplicationController
+  before_action :authenticate_user!
+  
     def board
       logger.debug("Villages#boardに入りました")
 
