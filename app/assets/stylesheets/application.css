@@ -59,6 +59,7 @@
   position:relative;
 }
 .kadomaru:active{
+  transform: translateY(5px);
   border:0.1em solid #c0c0c0;
 }
 
@@ -113,6 +114,7 @@
   position:relative;
 }
 .kadomaru_red_pit:active{
+  transform: translateY(5px);
   border:0.1em solid #c0c0c0;
 }
 
@@ -344,6 +346,7 @@
   /*border:none;*/
 }
 .kadomaru_futinasi_pit_prim:active{
+  transform: translateY(5px);
   border:0.1em solid #c0c0c0;
 }
 

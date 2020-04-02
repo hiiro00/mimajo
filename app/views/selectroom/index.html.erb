@@ -1,12 +1,14 @@
 <%= content_for(:body_index, "index") %>
 
+<span class="notice"><%= notice %></span>
+<span class="alert"><%= alert %></span>
+
 <% if user_signed_in? %>
-  ログインしました：<strong><%= current_user.username %></strong>.
-  <%= link_to "Settings", edit_user_registration_path %> |
+  ログインしました：<strong><%= current_user.username %></strong>　
   <%= link_to "Logout", destroy_user_session_path, method: :delete %>
 <% end %>
 
-<div class="outer">
+<div class="outer" ontouchstart="">
     <div class="out_relative">
 
       <div class="title_small">

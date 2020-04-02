@@ -1,15 +1,7 @@
 <%= content_for(:body_index, "index") %>
 
-<div class="outer">
+<div class="outer" ontouchstart="">
 <div class="out_relative">
-
-<% if user_signed_in? %>
-  Logged in as <strong><%= current_user.email %></strong>.
-  <%= link_to "Settings", edit_user_registration_path %> |
-  <%= link_to "Logout", destroy_user_session_path, method: :delete %>
-<% end %>
-
-
   <div class="title_small">
     <img src="logo_data_01.jpg">
   </div><br>
@@ -49,8 +41,7 @@
 
   <div class="kadomaru inner">
     戻る
-    <%= link_to '', controller: :welcome %>
-    <!--<a href="index.html"></a>-->
+    <%= link_to '', list_rooms_path %>
   </div><br><br>
 
 </div><br><br>
