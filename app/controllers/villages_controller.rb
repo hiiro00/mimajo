@@ -13,6 +13,11 @@ class VillagesController < ApplicationController
     end
 
     def index
+      logger.debug("Villages#indexに入りました")
+      
+      # お題　作成
+      @theme = Theme.where( 'id >= ?', rand(Theme.first.id..Theme.last.id) ).first.content
+      
     end
 
 end

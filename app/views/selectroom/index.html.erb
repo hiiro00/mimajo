@@ -8,6 +8,10 @@
   <%= link_to "Logout", destroy_user_session_path, method: :delete %>
 <% end %>
 
+<% logger.debug("■current_user print") %>
+<% logger.debug(current_user.email) %>
+
+
 <div class="outer" ontouchstart="">
     <div class="out_relative">
 
@@ -16,12 +20,12 @@
       </div><br>
       <div class="kadomaru inner">
           部屋新規作成
-          <%= link_to '', controller: rooms_path %>
+          <%= link_to '', rooms_path(email: current_user.email , name: current_user.username ,position:'owner') , method: :post %>  
       </div><br>
 
       <div class="kadomaru inner">
           部屋一覧へ
-          <%= link_to '', list_rooms_path %>
+          <%= link_to '', rooms_path %>
       </div><br>
       
       <div class="kadomaru inner">

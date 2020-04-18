@@ -9,6 +9,9 @@ Rails.application.routes.draw do
     	collection do
   	  get 'login'
   	  get 'list'
+  	  put 'join'
+  	  get 'judge'
+  	  get 'room_out'
   	end
   end
   

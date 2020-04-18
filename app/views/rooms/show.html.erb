@@ -1,1 +1,53 @@
-rooms/show.html
+<%= content_for(:body_index, "index") %>
+
+<span id="showvil_datatag" data-roomNum= <%= @room.roomNum %> data-villageNum=0 data-position= <%= @room.position %>  ></span> 
+
+<div class="outer" ontouchstart="">
+<div class="out_relative">
+  <div class="title_small">
+    <img src="/logo_data_01.jpg">
+  </div><br>
+
+  <% if @room.position == 'owner' %>
+    <div class="kadomaru_red_pit inner">
+    ゲーム開始
+    <%= link_to '', villages_path(roomNum: @room.roomNum ,name: @room.name ,roomId: @room.id ) , method: :put  ,:remote => true %>
+    <!--<a href="villages.html"></a>-->
+    </div><br><br>
+  <% else %>
+    あなたはメンバーです。<br>オーナーによるゲーム開始をお待ち下さい。<br><br>
+  <% end %>
+
+
+  <div class="kadomaru_futinasi inner">
+    メンバー
+  </div>
+  <!--<div class="posi_type">７人</div>-->
+
+  <p class="mem_list" id="show_room_mem">
+    <span class="owner inner"><%= @showOwnName  %></span>
+    <% @showMemberTxtAry.each do | member | %>
+      <span class="member inner"><%= member %></span>
+    <% end %>
+    <span class="comment">※オーナーは赤色</span><br>
+  </p>
+  
+
+  <div class="kadomaru_futinasi inner">
+    配役
+  </div>
+  <div class="posi_type">
+  マイノリティー・・１人<br>
+  インフルエンサー・１人<br>
+  ストーカー・・・・１人<br>
+  マジョリティー　・４人<br>
+  <span class="comment_sml">※お題は、ゲーム開始時にランダムに選ばれます。</span>
+  </div><br>
+
+  <div class="kadomaru inner">
+    戻る
+    <%= link_to '', list_rooms_path %>
+  </div><br><br>
+
+</div><br><br>
+</div>
