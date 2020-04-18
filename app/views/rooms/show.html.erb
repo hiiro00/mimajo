@@ -45,8 +45,8 @@
   </div><br>
 
   <div class="kadomaru inner">
-    戻る
-    <%= link_to '', list_rooms_path %>
+    部屋をぬける
+    <%= link_to '' , room_out_rooms_path(roomId: @room.id)  ,data: { confirm: '部屋を抜けます。OK?' } %>
   </div><br><br>
 
 </div><br><br>

@@ -70,6 +70,30 @@ class RoomsController < ApplicationController
     
 
   end
+
+  def room_out
+    logger.debug("rooms#room_outに入りました")
+    logger.debug(params)
     
+    if Room.where(id: params[:roomId]).empty?
+      # nilの時は、なにも処理しない
+    else
+      @room = Room.find(params[:roomId])
+      @brcst_roomNum = @room.roomNum.to_s # バッチ処理のため、外部変数が必要
+      @brcst_name = @room.name            # バッチ処理のため、外部変数が必要
+      
+      if @room.position == 'owner'
+        # ChatChannel.broadcast_to('message', {"message"=>"room_controlle_close", "roomNum"=>@brcst_roomNum, "name"=>@brcst_name,  "action"=>"logout_room"})
+      else
+        # ChatChannel.broadcast_to('message', {"message"=>"room_controlle_logout", "roomNum"=>@brcst_roomNum, "name"=>@brcst_name,  "action"=>"logout_room"})
+      end
+      
+      Room.where(id: params[:roomId]).delete_all
+    end
+    
+    redirect_to action: 'index'
+  end
+
+
     
 end
