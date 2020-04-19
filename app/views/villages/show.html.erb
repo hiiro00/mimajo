@@ -1,1 +1,71 @@
-villages\show
+<%= content_for(:body_index, "index") %>
+
+<div class="outer" ontouchstart="">
+  <div class="out_relative">
+
+    <div class="title_small">
+      <img src="/logo_data_01.jpg">
+    </div><br>
+    <div class="kadomaru_futinasi inner">
+      お題
+    </div>
+    <div class="posi_type"><%= @theme %></div><br>
+
+    <div class="kadomaru_futinasi inner">
+      あなたの役職
+    </div>
+
+
+    <% if @village.position == 'マイノリティ' %>
+      <div class="title_small">
+        <img src="/minority_no.png">
+      </div><br>
+      <div class="posi_type">あなたは少数派！</div><br>
+      最多得票で追放されない事を目指す。<br>
+      お題の「ベストアンサー」を想像して、
+      少し離れた回答を書こう。<br><br>
+
+    <% elsif @village.position == 'ストーカー' %>
+      <div class="title_small">
+        <img src="/stalker_no.png">
+      </div><br>
+      <div class="posi_type">あなたはマイノリティーが<br>大好き！</div><br>
+      マイノリティーと同じ回答を書こう。<br>
+      ※どんな状況でもマイノリティーと<br>
+      同じ回答なら勝利<br><br>
+
+    <% elsif @village.position == 'インフルエンサー' %>
+      <div class="title_small">
+        <img src="/influencer_no.png">
+      </div><br>
+      <div class="posi_type">あなたは目立ちたがり屋！</div><br>
+      とにかく注目されよう。<br>
+      投票時にたくさん票をもらうために<br>
+      「ベストアンサー」とは<br>
+      ほど遠い回答を書こう。<br><br>
+
+    <% else # マジョリティ%>  
+      <div class="title_small">
+        <img src="/majority_no.png">
+      </div><br>
+      <div class="posi_type">あなたは多数派！</div><br>
+      「ベストアンサー」を目指す。<br>
+      お題に沿った素直な回答や、<br>
+      なるべく被りそうな回答を書こう。<br><br>
+
+    <% end %>
+
+
+    <div class="kadomaru inner">
+      ホワイトボード
+      <%= link_to '', board_villages_path %>
+      <!--<a href="board.html"></a>-->
+    </div><br>
+    <div class="kadomaru inner">
+      部屋に戻る
+      <%= link_to '' , join_rooms_path(roomNum: @room.roomNum , name:current_user.name , email: current_user.email) ,method: :put ,data: { confirm: '部屋に戻ります。OK?' } %>
+      <!--<a href="room.html"></a>-->
+    </div><br><br>
+
+  </div><br><br>
+</div>

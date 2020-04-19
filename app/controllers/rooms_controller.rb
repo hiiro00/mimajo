@@ -63,7 +63,7 @@ class RoomsController < ApplicationController
     
     @room = Room.find(params[:id])
 
-    @showRoomNum,@showOwnName,@showMemberTxtAry = Room.getRoomShowText(@room.roomNum)
+    @showRoomNum,@showOwnName,@showMemberTxtAry,@showVilListAry = Room.getRoomShowText(@room.roomNum)
     
     logger.debug("@showMemberTxt:")
     logger.debug(@showMemberTxt)

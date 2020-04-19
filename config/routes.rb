@@ -18,6 +18,10 @@ Rails.application.routes.draw do
   resources :villages do
   	collection do
   	  get 'board'
+  	  put 'create'
+  	  get 'modal_trigger_show'
+  	  put 'resend_show_village'
+  	  put 'notif_result_village'
   	end
   end
   
