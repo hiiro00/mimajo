@@ -1,4 +1,6 @@
 <%= content_for(:body_index, "index") %>
+<span id="disp_show_village">
+<span id="datatag" data-roomnum= <%= @room.roomNum %> data-villagenum=<%= @village.villageNum %> data-position= <%= @room.position %> data-resultmsg="" ></span> 
 
 <div class="outer" ontouchstart="">
   <div class="out_relative">
@@ -61,11 +63,43 @@
       <%= link_to '', board_villages_path %>
       <!--<a href="board.html"></a>-->
     </div><br>
-    <div class="kadomaru inner">
+    <% if @room.position == 'owner' %>
+      <div class="kadomaru inner" ontouchstart="">
+        役職を再送する
+        <%= link_to '' , resend_show_village_villages_path(roomNum: @room.roomNum , villageNum: @village.villageNum) ,method: :put , :remote => true %>
+        <!--<a href="room.html"></a>-->
+      </div><br>
+      <div class="kadomaru inner" ontouchstart="">
+        結果を全員に通知
+        <%= link_to '' , notif_result_village_villages_path(roomNum: @room.roomNum , villageNum: @village.villageNum) ,method: :put , :remote => true ,data: { confirm: '全員に結果（正体）を通知します。OK?' } %>
+        <!--<a href="room.html"></a>-->
+      </div><br>
+    <% end %>
+    <div class="kadomaru inner" ontouchstart="">
       部屋に戻る
       <%= link_to '' , join_rooms_path(roomNum: @room.roomNum , name:current_user.name , email: current_user.email) ,method: :put ,data: { confirm: '部屋に戻ります。OK?' } %>
       <!--<a href="room.html"></a>-->
     </div><br><br>
-
-  </div><br><br>
+</div><br><br>
 </div>
+
+
+<!-- モーダル -->
+<!-- ゲーム終了通知 -->
+<div class="modal fade" id="modal_notif_result" tabindex="-1" data-backdrop="false">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">ゲームの終了通知</h4>
+      </div>
+      <div class="modal-body">
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="modal_btn_start_vil" class="btn btn-warning" data-dismiss="modal">OK</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+

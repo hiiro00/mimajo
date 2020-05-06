@@ -16,7 +16,7 @@ class VillagesController < ApplicationController
     
     ## 村　配役構築
     # 村メンバー算出
-    @showRoomNum,@showOwnName,@showMemberTxt,@showVilListAry = Room.getRoomShowText(params[:roomNum].to_i)
+    @showRoomNum,@showOwnName,@showMemberTxt,@showVilListAry,@showMemListAry,@showOwnData = Room.getRoomShowText(params[:roomNum].to_i)
 
     # 村作成条件　チェック  村１名、オーナーのみ、メンバー０名を許容するため、以下コード非対象
     # if @showMemberTxt.blank?
@@ -65,12 +65,13 @@ class VillagesController < ApplicationController
 
     elsif max <= 4     # 	４人     マイノリティ*１、他マジョリティ
       @showVilListAry.each_with_index do |village , i|
+        # binding.pry
         if i == gmnaituu[0]
           position = "マイノリティ"
         else
           position = "マジョリティ"
         end
-        @village = Village.new(roomNum: params[:roomNum] , villageNum: villageNumOrd , name: @showVilListAry[0][:name] , email: @showVilListAry[0][:email] , position: position , theme: @theme)
+        @village = Village.new(roomNum: params[:roomNum] , villageNum: villageNumOrd , name: village[:name] , email: village[:email] , position: position , theme: @theme)
         @village.save
       end
 
@@ -83,7 +84,7 @@ class VillagesController < ApplicationController
         else
           position = "マジョリティ"
         end
-        @village = Village.new(roomNum: params[:roomNum] , villageNum: villageNumOrd , name: @showVilListAry[0][:name] , email: @showVilListAry[0][:email] , position: position , theme: @theme)
+        @village = Village.new(roomNum: params[:roomNum] , villageNum: villageNumOrd , name: village[:name] , email: village[:email] , position: position , theme: @theme)
         @village.save
       end
 
@@ -98,7 +99,7 @@ class VillagesController < ApplicationController
         else
           position = "マジョリティ"
         end
-        @village = Village.new(roomNum: params[:roomNum] , villageNum: villageNumOrd , name: @showVilListAry[0][:name] , email: @showVilListAry[0][:email] , position: position , theme: @theme)
+        @village = Village.new(roomNum: params[:roomNum] , villageNum: villageNumOrd , name: village[:name] , email: village[:email] , position: position , theme: @theme)
         @village.save
       end
 
@@ -115,14 +116,13 @@ class VillagesController < ApplicationController
         else
           position = "マジョリティ"
         end
-        @village = Village.new(roomNum: params[:roomNum] , villageNum: villageNumOrd , name: @showVilListAry[0][:name] , email: @showVilListAry[0][:email] , position: position , theme: @theme)
+        @village = Village.new(roomNum: params[:roomNum] , villageNum: villageNumOrd , name: village[:name] , email: village[:email] , position: position , theme: @theme)
         @village.save
       end
     end
 
-    # ChatChannel.broadcast_to('message', {"message"=>"show_village", "roomNum"=>params[:roomNum], "villageNum"=> villageNumOrd ,"action"=>"show_village"})
+    ChatChannel.broadcast_to('message', {"message"=>"show_village", "roomNum"=>params[:roomNum], "villageNum"=> villageNumOrd ,"action"=>"show_village"})
 
-    # redirect_to action: 'show' , villageNum: villageNumOrd , roomNum: params[:roomNum]  # name: params[:name] , roomId: params[:roomId] , 
     redirect_to @village
   end
 
@@ -159,5 +159,59 @@ class VillagesController < ApplicationController
     @theme = Theme.where( 'id >= ?', rand(Theme.first.id..Theme.last.id) ).first.content
     
   end
+
+  def modal_trigger_show
+    logger.debug("Village#modal_trigger_showに入りました")
+    logger.debug(params)
+
+    # redirect_to action: 'show' , villageNum: params[:villageNum].to_i , roomNum: params[:roomNum].to_i
+    pram1 = '?villageNum=' + params[:villageNum] + '&roomNum=' + params[:roomNum] + '\''
+    # pram2 = "window.location = '/villages/show" +  pram
+    pram2 = Village.where(villageNum: params[:villageNum])[0].id.to_s +  pram1
+    pram3 = "window.location = '/villages/" + pram2
+    
+    logger.debug("pram1: #{pram1}")
+    logger.debug("pram2: #{pram2}")
+    logger.debug("pram3: #{pram3}")
+
+    render :js => pram3
+    
+  end
+
+  # 村開始時に、部屋画面にいなかったメンバーへの再送通知（村開始）
+  def resend_show_village
+    logger.debug("Village#resend_show_villageに入りました")
+    logger.debug(params)
+  
+    ChatChannel.broadcast_to('message', {"message"=>"show_village", "roomNum"=>params[:roomNum], "villageNum"=> params[:villageNum] ,"action"=>"show_village"})
+
+  end
+  
+  # ゲーム結果を全員に通知する
+  def notif_result_village
+    logger.debug("Village#notif_result_villageに入りました")
+    logger.debug(params)
+
+    # マイノリティは一人のみ
+    @village = Village.where(villageNum: params[:villageNum].to_i).where(position: "マイノリティ").first
+    msg = "<h1>マイノリティ：#{@village.name}<br>"
+    
+    # ストーカーは複数人の可能性あり
+    list = Village.where(villageNum: params[:villageNum].to_i).where(position: "ストーカー")
+    list.each do |member|
+      msg = msg + "<h1>ストーカー：#{member.name}<br>"
+    end
+    
+    # インフルエンサーも複数対応
+    list = Village.where(villageNum: params[:villageNum].to_i).where(position: "インフルエンサー")
+    list.each do |member|
+      msg = msg + "<h1>インフルエンサー：#{member.name}<br>"
+    end
+
+    ChatChannel.broadcast_to('message', {"message"=>"notif_result", "roomNum"=>params[:roomNum], "villageNum"=> params[:villageNum],"resultMsg"=>msg})
+
+  end
+  
+  
 
 end

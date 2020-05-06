@@ -65,7 +65,7 @@ class Room < ApplicationRecord
 
   # 表示向けデータ作成(部屋個別)
   def self.getRoomShowText(roomNum)
-    # return @showRoomNum,@showOwnName,@showMemberTxt[],@showVilList[]
+    # return @showRoomNum,@showOwnName,@showMemberTxt[],@showVilList[],@showMemList[],@showOwnData
 
     @rooms = self.where(roomNum: roomNum)
       
@@ -73,18 +73,22 @@ class Room < ApplicationRecord
   	@showOwnName = ""
   	@showMemberTxt = []
   	@showVilList = []
+  	@showMemList = []
+  	@showOwnData = ""
 
   	@rooms.each do |room|
   		if room.position == "owner"
   		  @showRoomNum = room.roomNum
   		  @showOwnName = room.name
+  		  @showOwnData = { name: room.name, email: room.email}
   		else # memberの場合
   		  @showMemberTxt.push(room.name)
+  		  @showMemList.push({ name: room.name, email: room.email})
   		end
   		@showVilList.push({ name: room.name, email: room.email})
   	end
 
-    return @showRoomNum,@showOwnName,@showMemberTxt,@showVilList
+    return @showRoomNum,@showOwnName,@showMemberTxt,@showVilList,@showMemList,@showOwnData
   end
   
   

@@ -1,6 +1,8 @@
 <%= content_for(:body_index, "index") %>
 
-<span id="showvil_datatag" data-roomNum= <%= @room.roomNum %> data-villageNum=0 data-position= <%= @room.position %>  ></span> 
+<span id="disp_show_room">
+<span id="datatag" data-roomnum= <%= @room.roomNum %> data-villagenum=0 data-position= <%= @room.position %> data-resultmsg="" ></span> 
+
 
 <div class="outer" ontouchstart="">
 <div class="out_relative">
@@ -25,29 +27,85 @@
   <!--<div class="posi_type">７人</div>-->
 
   <p class="mem_list" id="show_room_mem">
-    <span class="owner inner"><%= @showOwnName  %></span>
-    <% @showMemberTxtAry.each do | member | %>
-      <span class="member inner"><%= member %></span>
+    <span class="owner inner" id=<%= @showOwnData[:email]  %> ><%= @showOwnData[:name]  %></span>
+    <% @showMemListAry.each do | member | %>
+      <span class="member inner" id=<%= member[:email] %> ><%= member[:name] %></span>
     <% end %>
-    <span class="comment">※オーナーは赤色</span><br>
   </p>
+  <span class="comment">※オーナーは赤色</span><br>
   
 
   <div class="kadomaru_futinasi inner">
     配役
   </div>
-  <div class="posi_type">
-  マイノリティー・・１人<br>
-  インフルエンサー・１人<br>
-  ストーカー・・・・１人<br>
-  マジョリティー　・４人<br>
+  <div class="posi_type" id="room_regu">
+  <% if @vilListCnt <= 4 %>
+    マイノリティー・・・１人<br>
+    マジョリティー　・・残り<br>
+  <% elsif @vilListCnt <= 6 %>
+		マイノリティー・・・１人<br>
+		ストーカー・・・・・１人<br>
+		マジョリティー　・・残り<br>
+  <% elsif @vilListCnt <= 10 %>
+		マイノリティー・・・１人<br>
+		インフルエンサー・・１人<br>
+		ストーカー・・・・・１人<br>
+		マジョリティー　・・残り<br>
+  <% else %>
+		マイノリティー・・・１人<br>
+		インフルエンサー・・１人<br>
+		ストーカー・・・・・２人<br>
+		マジョリティー　・・残り<br>
+  <% end %>
   <span class="comment_sml">※お題は、ゲーム開始時にランダムに選ばれます。</span>
   </div><br>
 
   <div class="kadomaru inner">
     部屋をぬける
-    <%= link_to '' , room_out_rooms_path(roomId: @room.id)  ,data: { confirm: '部屋を抜けます。OK?' } %>
+    <%= link_to '' , room_out_rooms_path(roomId: @room.id ,email: @room.email)  ,data: { confirm: '部屋を抜けます。OK?' } %>
   </div><br><br>
 
 </div><br><br>
 </div>
+
+<!-- モーダル・ダイアログ -->
+<div class="modal fade" id="modal_close_room" tabindex="-1" data-backdrop="false">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+        オーナーによって、部屋が閉じられました。「部屋一覧に戻る」ボタンを押して移動してください
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="modal_btn_close_room" class="btn btn-warning" onclick="location.href='../rooms'">部屋一覧に戻る</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="modal_start_vil" tabindex="-1" data-backdrop="false">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+        オーナーによって、役職が配布されました。「ゲームを始める」ボタンを押して遷移してください
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="modal_btn_start_vil" class="btn btn-warning">ゲームを始める</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script>
+ $( function() {
+  $('#modal_btn_start_vil').click( function () {
+    $.ajax({
+        url: '/villages/modal_trigger_show',
+        type: 'GET',
+        data: {roomNum: Number($('#datatag').data('roomnum')) , villageNum: Number($('#datatag').data('villagenum')) },
+      });
+  });
+ });
+</script>
+

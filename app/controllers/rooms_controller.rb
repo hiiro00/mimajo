@@ -48,7 +48,7 @@ class RoomsController < ApplicationController
     end
     
     if @room.position == "member"
-      # ChatChannel.broadcast_to('message', {"message"=>"room_controlle_join", "roomNum"=>params[:roomNum], "name"=>params[:name],  "action"=>"join_room"})
+      ChatChannel.broadcast_to('message', {"message"=>"room_controlle_join", "roomNum"=>params[:roomNum], "name"=>params[:name], "email"=>params[:email], "action"=>"join_room"})
     end
     
   	redirect_to @room
@@ -63,11 +63,14 @@ class RoomsController < ApplicationController
     
     @room = Room.find(params[:id])
 
-    @showRoomNum,@showOwnName,@showMemberTxtAry,@showVilListAry = Room.getRoomShowText(@room.roomNum)
+    @showRoomNum,@showOwnName,@showMemberTxtAry,@showVilListAry,@showMemListAry,@showOwnData = Room.getRoomShowText(@room.roomNum)
+    @vilListCnt = @showVilListAry.count
     
-    logger.debug("@showMemberTxt:")
-    logger.debug(@showMemberTxt)
-    
+    logger.debug("@showMemberTxtAry:#{@showMemberTxtAry}")
+    logger.debug("@showVilListAry:#{@showVilListAry}")
+    logger.debug("@showMemListAry:#{@showMemListAry}")
+    logger.debug("@showOwnData:#{@showOwnData}")
+    logger.debug(@showOwnData[:name])
 
   end
 
@@ -81,11 +84,12 @@ class RoomsController < ApplicationController
       @room = Room.find(params[:roomId])
       @brcst_roomNum = @room.roomNum.to_s # バッチ処理のため、外部変数が必要
       @brcst_name = @room.name            # バッチ処理のため、外部変数が必要
+      @brcst_email = @room.email            # バッチ処理のため、外部変数が必要
       
       if @room.position == 'owner'
-        # ChatChannel.broadcast_to('message', {"message"=>"room_controlle_close", "roomNum"=>@brcst_roomNum, "name"=>@brcst_name,  "action"=>"logout_room"})
+        ChatChannel.broadcast_to('message', {"message"=>"room_controlle_close", "roomNum"=>@brcst_roomNum, "name"=>@brcst_name,  "action"=>"logout_room"})
       else
-        # ChatChannel.broadcast_to('message', {"message"=>"room_controlle_logout", "roomNum"=>@brcst_roomNum, "name"=>@brcst_name,  "action"=>"logout_room"})
+        ChatChannel.broadcast_to('message', {"message"=>"room_controlle_logout", "roomNum"=>@brcst_roomNum, "name"=>@brcst_name, "email"=>@brcst_email, "action"=>"logout_room"})
       end
       
       Room.where(id: params[:roomId]).delete_all
