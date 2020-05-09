@@ -17,13 +17,32 @@
 
 
 #index{background-color: #fcc802; font-size: 5vw;}
-#rule{background-color: #1a0b08; font-size: 5vw;}
+#rule{background-color: #000000; font-size: 5vw;}
 
 
 
 .resizeimage img{ width: 100%; }
 .title_small img{ width: 50%; }
 .fulldisp img{   width: 100vw; height: 100vh; }
+
+.session_head{
+  position: relative;
+}
+.session_head:active{
+  transform: translateY(5px);
+  border:0.1em solid #c0c0c0;
+}
+.session_head a{
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color:transparent;
+}
+
+
 
 .outer{
   text-align: center;
@@ -274,8 +293,9 @@
   vertical-align: top;
 }
 
-.normal_indent{
-  padding-left: 0.5em;
+.rule_dtl_indent{
+  padding-left: 0.3em;
+  font-size:0.9em;
 }
 
 .box_textarea{
