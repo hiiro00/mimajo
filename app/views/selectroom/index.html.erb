@@ -6,8 +6,8 @@
 
 
 <% if user_signed_in? %>
-  ログイン：<strong><%= current_user.name %></strong>
   <span class="session_head" ontouchstart="">
+  ログイン：<strong><%= current_user.name %></strong>
   <img src="/logout_002_up.png">
 	<%= link_to "", destroy_user_session_path, method: :delete %>
 </span>
