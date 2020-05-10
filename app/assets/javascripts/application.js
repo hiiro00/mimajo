@@ -9,7 +9,7 @@
 //
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
-//
+// 
 //= require jquery3
 //= require bootstrap-sprockets
 //= require rails-ujs
@@ -18,3 +18,10 @@
 //= require_tree .
 //= require cable.js
 
+window.addEventListener('load', () => {
+   document.getElementById('message').onsubmit = () => {
+      console.log("message#onsubmiを検知しました");
+      App.chat.join_room(document.getElementById('body').value);
+      return false;
+   }
+});
