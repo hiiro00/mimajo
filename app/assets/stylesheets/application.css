@@ -29,7 +29,7 @@
   position: relative;
 }
 .session_head:active{
-  transform: translateY(5px);
+  transform: translateY(10px);
   border:0.1em solid #c0c0c0;
 }
 .session_head a{
@@ -193,6 +193,7 @@
 
 .mem_list{
   line-height: 1.2em;
+  margin-top: 4px;
 }
 
 .member {
@@ -392,7 +393,7 @@
   width: 7%;
 }
 .owner2{
-  width: 20%;
+  width: 25%;
 }
 
 tr:nth-child(1) th{
@@ -420,6 +421,11 @@ tr:last-child td{
 
 .modal-footer button{
   font-size: 0.7em;
+}
+
+.social_btn_correc{
+  padding-left: 4px;
+  padding-right: 4px;
 }
 
 
