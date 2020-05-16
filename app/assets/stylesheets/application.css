@@ -428,5 +428,21 @@ tr:last-child td{
   padding-right: 4px;
 }
 
+/* class colの内部にあるaリンク link_toは親と同じサイズを持ち、透過*/
+.col a{
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color:transparent;
+}
+
+.col:active{
+  transform: translateY(5px);
+  border:0.1em solid #c0c0c0;
+}
+
 
 

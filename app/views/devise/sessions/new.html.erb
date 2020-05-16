@@ -9,10 +9,16 @@
       <div class="kadomaru_red_futinasi inner">
           ログイン
         </div><br><br>
-      <div class="col">
-        <a href="rule.html" class="btn btn-twitter btn-xxl social_btn_correc">
-          <i class="fab fa-twitter fa-2x"></i>　Twitterでログインする</a>
-      </div><br>
+
+      <%- if devise_mapping.omniauthable? %>
+        <%- resource_class.omniauth_providers.each do |provider| %>
+          <div class="col">
+            <span class="btn btn-twitter btn-xxl social_btn_correc">
+              <i class="fab fa-twitter fa-2x"></i>　Twitterでログインする</span>
+            <%= link_to "", omniauth_authorize_path(resource_name, provider) %>
+          </div><br>
+        <% end %>
+      <% end %>
 
       <p class="border_text">または</p>   
       <br>
