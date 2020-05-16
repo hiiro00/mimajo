@@ -429,7 +429,7 @@ tr:last-child td{
 }
 
 /* class colの内部にあるaリンク link_toは親と同じサイズを持ち、透過*/
-.social_btn_correc a{
+.col a{
   display: block;
   position: absolute;
   top: 0;
