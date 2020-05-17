@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :privacypolicy, only: [:index]
+  resources :termsofservice, only: [:index]
   devise_for :users, controllers: {
     omniauth_callbacks: 'users/omniauth_callbacks',
     registrations: 'users/registrations'
