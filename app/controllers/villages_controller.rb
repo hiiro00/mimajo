@@ -75,12 +75,12 @@ class VillagesController < ApplicationController
         @village.save
       end
 
-    elsif max <= 6  # 	５～６人   マイノリティ*１、ストーカー*１、他マジョリティ
+    elsif max <= 6  # 	５～６人   マイノリティ*１、インフルエンサー*１、他マジョリティ
       @showVilListAry.each_with_index do |village , i|
         if i == gmnaituu[0]
           position = "マイノリティ"
         elsif i == gmnaituu[1] 
-          position = "ストーカー"
+          position = "インフルエンサー"
         else
           position = "マジョリティ"
         end

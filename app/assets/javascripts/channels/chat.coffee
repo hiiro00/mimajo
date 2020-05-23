@@ -11,7 +11,7 @@ reguType = (memCnt) ->
 updateRegu = (oldMemCnt , newMemCont) ->
   text = [
    "		マイノリティー・・・１人<br>\n		マジョリティー　・・残り<br>\n"
-   "		マイノリティー・・・１人<br>\n		ストーカー・・・・・１人<br>\n		マジョリティー　・・残り<br>"
+   "		マイノリティー・・・１人<br>\n		インフルエンサー・・１人<br>\n		マジョリティー　・・残り<br>"
    "		マイノリティー・・・１人<br>\n		インフルエンサー・・１人<br>\n		ストーカー・・・・・１人<br>\n		マジョリティー　・・残り<br>"
    "		マイノリティー・・・１人<br>\n		インフルエンサー・・１人<br>\n		ストーカー・・・・・２人<br>\n		マジョリティー　・・残り<br>"]
   oldReguType = reguType(oldMemCnt)
