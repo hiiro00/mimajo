@@ -39,7 +39,11 @@ class VillagesController < ApplicationController
 
     # GM役、内通者役の配列番号　抽選
     max = @showVilListAry.count
-    gmnaituu = (0..(max-1)).to_a.sort_by{rand}[0..1]
+    logger.debug("■村　人数： #{max}")
+
+    
+    gmnaituu = (0..(max-1)).to_a.sort_by{rand}
+    logger.debug("■抽選用　gmnaituu： #{gmnaituu}")
 
     # 	４人     マイノリティ*１、他マジョリティ
     # 	５～６人   マイノリティ*１、ストーカー*１、他マジョリティ
@@ -48,6 +52,7 @@ class VillagesController < ApplicationController
 
     # 人数別配役　配置
     if max <= 1     # 	１人     マイノリティ　特殊な許容
+      logger.debug("■村create 人数別配役　配置 一人用")
       rnd = rand(4)
       case rnd
       when 0
@@ -64,6 +69,7 @@ class VillagesController < ApplicationController
       @village.save
 
     elsif max <= 4     # 	４人     マイノリティ*１、他マジョリティ
+      logger.debug("■村create 人数別配役　配置 ４人以下用")
       @showVilListAry.each_with_index do |village , i|
         # binding.pry
         if i == gmnaituu[0]
@@ -76,6 +82,7 @@ class VillagesController < ApplicationController
       end
 
     elsif max <= 6  # 	５～６人   マイノリティ*１、インフルエンサー*１、他マジョリティ
+      logger.debug("■村create 人数別配役　配置 ６人以下用")
       @showVilListAry.each_with_index do |village , i|
         if i == gmnaituu[0]
           position = "マイノリティ"
@@ -89,6 +96,7 @@ class VillagesController < ApplicationController
       end
 
     elsif max <= 10 # 	７～１０人  マイノリティ*１、ストーカー*１、インフルエンサー*１、他マジョリティ
+      logger.debug("■村create 人数別配役　配置 １０人以下用")
       @showVilListAry.each_with_index do |village , i|
         if i == gmnaituu[0]
           position = "マイノリティ"
@@ -104,6 +112,7 @@ class VillagesController < ApplicationController
       end
 
     else            # 	１１人以上  マイノリティ*１、ストーカー*２、インフルエンサー*１、他マジョリティ
+      logger.debug("■村create 人数別配役　配置 １１人以上用")
       @showVilListAry.each_with_index do |village , i|
         if i == gmnaituu[0]
           position = "マイノリティ"
@@ -122,6 +131,11 @@ class VillagesController < ApplicationController
     end
 
     ChatChannel.broadcast_to('message', {"message"=>"show_village", "roomNum"=>params[:roomNum], "villageNum"=> villageNumOrd ,"action"=>"show_village"})
+
+    list = Village.where(villageNum: villageNumOrd)
+    list.each do |member|
+      logger.debug("■村　配役： #{member.name}  #{member.position}") 
+    end
 
     redirect_to @village
   end
