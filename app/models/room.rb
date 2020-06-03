@@ -15,7 +15,7 @@ class Room < ApplicationRecord
 
   # 表示向けデータ作成(一覧)
   def self.getRoomIndexText
-    # return @roomNum[],@ownName[],@memberTxt[]
+    # return @roomNumSorted[] , @ownNameSorted[] , @memberTxtSorted[]
     
     @rooms = self.all
       
@@ -53,13 +53,40 @@ class Room < ApplicationRecord
         end
       end
   	end
+  	
+  	logger.debug("@roomNum = #{@roomNum}")
+  	logger.debug("@ownName = #{@ownName}")
+  	logger.debug("@memberTxt = #{@memberTxt}")
     	
-    #　配列順序　逆順へ
-    @roomNum.reverse!
-    @ownName.reverse!
-    @memberTxt.reverse!
+    #　配列順序　降順へ
+    @roomNumSorted = @roomNum.sort.reverse!
+    @roomNumSortedIndex = []
+    @ownNameSorted = []
+    @memberTxtSorted = []
+    
+    @roomNumSorted.each do |num|
+    	@roomNum.each_with_index do |target , i|
+    		if target == num
+    			@roomNumSortedIndex.push(i)
+    		end
+    	end
+    end
+    
+    # puts "@roomNum: #{@roomNum}"
+    # puts "@roomNumSorted: #{@roomNumSorted}"
+    # puts "@roomNumSortedIndex: #{@roomNumSortedIndex}"
+    
+    @roomNumSortedIndex.each do |index|
+        @ownNameSorted.push(@ownName[index])
+        @memberTxtSorted.push(@memberTxt[index])
+    end
+    
+    # puts "@roomNumSorted: #{@roomNumSorted}"
+    # puts "@ownNameSorted: #{@ownNameSorted}"
+    # puts "@memberTxtSorted: #{@memberTxtSorted}"
 
-  	return @roomNum,@ownName,@memberTxt
+
+  	return @roomNumSorted , @ownNameSorted , @memberTxtSorted
       
   end
 
