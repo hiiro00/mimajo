@@ -8,6 +8,7 @@
     <div class="title_small">
       <img src="/logo_data_01.jpg">
     </div><br>
+    ルームID:<%= @room.roomNum %><br>
     <div class="kadomaru_futinasi inner">
       お題
     </div>
@@ -60,7 +61,7 @@
 
     <div class="kadomaru inner">
       ホワイトボード
-      <%= link_to '', board_villages_path %>
+      <%= link_to '', board_villages_path(id: @village.id) %>
       <!--<a href="board.html"></a>-->
     </div><br>
     <% if @room.position == 'owner' %>

@@ -98,6 +98,25 @@ App.chat = App.cable.subscriptions.create "ChatChannel",
             
             e.appendChild(span)
             
+            # ownerの時のみ、メンバー　バン機能をつける
+            if datatag.dataset.position == "owner"
+              console.log('ownerの時のみ、メンバー　バン機能をつける')
+              tspan = document.getElementById(data['email'])
+              
+              # 改行エレメントを前に作る必要がある インデントくずれ回避の為
+              tspan.appendChild( document.createTextNode('\n'))
+              
+              # 削除リンクを作成
+              a = document.createElement('a')
+              a.setAttribute("data-confirm", "メンバーを外します。OK?")
+              a.setAttribute("data-remote", "true")
+              a.setAttribute("rel", "nofollow")
+              a.setAttribute("data-method", "put")
+              strg = "/rooms/room_out_member?email=" + data['email'] + "&roomNum=" + data['roomNum']
+              console.log(strg)
+              a.setAttribute("href", strg)
+              tspan.appendChild(a)
+
             # 必要に応じて、レギュ内容更新
             updateRegu(oldMemCnt,e.getElementsByTagName('span').length)
             
@@ -154,8 +173,8 @@ App.chat = App.cable.subscriptions.create "ChatChannel",
             $('#modal_err_createVlg_lackmember').modal('show')
         
 
-    #　村（役職）画面
-    if document.getElementById('disp_show_village') != null
+    #　村（役職）画面 or ボード画面
+    if (document.getElementById('disp_show_village') != null) || (document.getElementById('disp_show_board'))
       
       console.log('村（役職）画面向け処理開始')
       console.log(data)
@@ -174,4 +193,10 @@ App.chat = App.cable.subscriptions.create "ChatChannel",
           $('#modal_notif_result').find('.modal-body').html(data['resultMsg']);
           # $('#modal_notif_result').find('.modal-body').html("<h1> 内通者：ローシ  お題：寝袋 </h1>");
           $('#modal_notif_result').modal('show')
+          
+          
+          
+          
+          
+          
           

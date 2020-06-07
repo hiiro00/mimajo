@@ -14,8 +14,10 @@ Rails.application.routes.draw do
   	  get 'login'
   	  get 'list'
   	  put 'join'
-  	  get 'judge'
   	  get 'room_out'
+  	  put 'room_out_member'
+  	  get 'judge'
+
   	end
   end
   

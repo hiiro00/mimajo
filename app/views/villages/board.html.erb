@@ -1,11 +1,16 @@
 <%= content_for(:body_index, "index") %>
 <span id="disp_show_board">
-  
+<span id="datatag" data-roomnum= <%= @room.roomNum %> data-villagenum=<%= @village.villageNum %> data-position= <%= @room.position %> data-resultmsg="" ></span> 
+
 <div class="outert">
   <div class="out_relative ">
     <span style="font-size: 28vw">
     <div class="fulldisp">
       <img src="/white_board.png">
+    </div>
+    <div class="backicon">
+      戻る
+      <%= link_to '', village_path(id: @village.id) %>
     </div>
     
     <textarea id="textarea_board" class="box_textarea" rows="1" placeholder="ここへ"></textarea></span>
@@ -15,3 +20,22 @@
 </div>
 
 <%= javascript_include_tag "board.js" %>
+
+<!-- モーダル -->
+<!-- ゲーム終了通知 -->
+<div class="modal fade" id="modal_notif_result" tabindex="-1" data-backdrop="false">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">ゲームの終了通知</h4>
+      </div>
+      <div class="modal-body">
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="modal_btn_start_vil" class="btn btn-warning" data-dismiss="modal">OK</button>
+      </div>
+    </div>
+  </div>
+</div>
+

@@ -146,7 +146,15 @@ class VillagesController < ApplicationController
 
   def board
     logger.debug("Villages#boardに入りました")
+    logger.debug(params)
+    
+    @village = Village.find(params[:id])
+    @theme   = @village.theme
 
+    @room = Room.where(email: current_user.email).where(roomNum: @village.roomNum)[0]
+    
+    # 自身のvillage情報に上書き
+    @village = Village.where(villageNum: @village.villageNum).where(email: current_user.email)[0]
   end
   
 

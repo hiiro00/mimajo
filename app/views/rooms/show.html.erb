@@ -10,6 +10,7 @@
     <img src="/logo_data_01.jpg">
   </div>
 
+  ルームID:<%= @room.roomNum %><br>
   <% if @room.position == 'owner' %>
     <div class="kadomaru_red_pit inner">
     ゲーム開始
@@ -29,10 +30,20 @@
   <p class="mem_list" id="show_room_mem">
     <span class="owner inner" id=<%= @showOwnData[:email]  %> ><%= @showOwnData[:name]  %></span>
     <% @showMemListAry.each do | member | %>
-      <span class="member inner" id=<%= member[:email] %> ><%= member[:name] %></span>
+      <span class="member inner" id=<%= member[:email] %> >
+        <%= member[:name] %>
+        <% if @room.position == 'owner' %>
+          <%= link_to '' , room_out_member_rooms_path(roomNum: @room.roomNum ,email: member[:email]) ,method: :put , :remote => true ,data: { confirm: 'メンバーを外します。OK?' } %>
+        <% end %>
+      </span>
     <% end %>
   </p>
-  <span class="comment">※オーナーは赤色</span><br>
+  <span class="comment_sml">
+    オーナーは赤色<br>
+    <% if @room.position == 'owner' %>
+      オーナーはメンバーをクリックして、外すことができます。
+    <% end %>
+  </span><br>
   
 
   <div class="kadomaru_futinasi inner">
@@ -57,7 +68,7 @@
 		ストーカー・・・・・２人<br>
 		マジョリティー　・・残り<br>
   <% end %>
-  <span class="comment_sml">※お題は、ゲーム開始時にランダムに選ばれます。</span>
+  <span class="comment_sml">お題は、ゲーム開始時にランダムに選ばれます。</span>
   </div><br>
 
   <div class="kadomaru inner">

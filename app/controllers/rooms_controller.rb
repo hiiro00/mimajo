@@ -5,6 +5,19 @@ class RoomsController < ApplicationController
     logger.debug("createに入りました")
     logger.debug(params)
 
+    # 過去に自分がオーナーの部屋を削除
+    if Room.where(position: "owner").where(email: params[:email]).exists?
+      logger.debug("過去に自分がオーナーの部屋を削除しました")
+      @room = Room.where(position: "owner").where(email: params[:email])[0]
+      @brcst_roomNum = @room.roomNum.to_s # バッチ処理のため、外部変数が必要
+      @brcst_name = @room.name            # バッチ処理のため、外部変数が必要
+      @brcst_email = @room.email            # バッチ処理のため、外部変数が必要
+      
+      ChatChannel.broadcast_to('message', {"message"=>"room_controlle_close", "roomNum"=>@brcst_roomNum, "name"=>@brcst_name,  "action"=>"logout_room"})
+      
+      Room.where(roomNum: @room.roomNum).delete_all
+    end
+
   	@room = Room.new(email:params[:email],name:params[:name],position:"owner",roomNum: Room.createRoomNum)
   	@room.save
   	redirect_to @room
@@ -97,6 +110,29 @@ class RoomsController < ApplicationController
     
     redirect_to action: 'index'
   end
+
+  def room_out_member
+    logger.debug("rooms#room_out_memberに入りました")
+    logger.debug(params)
+    
+    if Room.where(roomNum: params[:roomNum]).where(email: params[:email]).empty?
+      # nilの時は、なにも処理しない
+    else
+      @room = Room.where(roomNum: params[:roomNum]).where(email: params[:email])[0]
+      @brcst_roomNum = @room.roomNum.to_s # バッチ処理のため、外部変数が必要
+      @brcst_name = @room.name            # バッチ処理のため、外部変数が必要
+      @brcst_email = @room.email            # バッチ処理のため、外部変数が必要
+      
+      ChatChannel.broadcast_to('message', {"message"=>"room_controlle_logout", "roomNum"=>@brcst_roomNum, "name"=>@brcst_name, "email"=>@brcst_email, "action"=>"logout_room"})
+
+      Room.where(email: params[:email]).delete_all
+    end
+  end
+  
+
+
+
+
 
 
     
